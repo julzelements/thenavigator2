@@ -19,3 +19,11 @@ code {
 .red {
   background: red;
 }
+
+.hidden {
+  display: none;
+}
+
+.blue {
+  background: blue;
+}

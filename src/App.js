@@ -21,12 +21,12 @@ class NameForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className={this.props.display} onSubmit={this.handleSubmit}>
         <label>
           {this.props.name}
           <input type="text" value={this.state.value} onChange={this.handleChange} />
         </label>
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Submit"/>
       </form>
     );
   }
@@ -41,7 +41,7 @@ function Icon(props) {
       >
         {props.name}
       </button>
-      <NameForm name={props.name}/>
+      <NameForm name={props.name} display={props.value ? "green" : "hidden" }/>
     </div>
 	);
 }
