@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
 
-function Square(props) {
+function Icon(props) {
 	return (
 		<button 
-			className="square"
+			className={props.value ? "green" : "red" }
 			onClick={props.onClick}
 		>
 			{props.value}
@@ -21,8 +21,8 @@ class App extends React.Component {
 		}
   }
 
-  renderSquare(i) {
-	  return <Square 
+  renderIcon(i) {
+	  return <Icon 
 	  value={this.state.toggled[i]}
 	  onClick={() => this.handleClick(i)}
 	  />;  // anything you set here can be accessed
@@ -40,9 +40,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        {this.renderSquare(0)}
-        {this.renderSquare(1)}
-        {this.renderSquare(2)}
+        {this.renderIcon(0)}
+        {this.renderIcon(1)}
+        {this.renderIcon(2)}
       </div>
     );
   }
