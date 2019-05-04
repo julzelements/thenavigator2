@@ -12,7 +12,7 @@ function Icon(props) {
 function Field(props) {
   return (
     <div>
-      [FIELD]
+      {props.section.sectionName}
     </div>
   );
 }
@@ -30,6 +30,12 @@ class App extends React.Component {
     );
   }
 
+  renderField(section) {
+    return (
+      <Field section={section}/>
+    );
+  }
+
   render() {
 
     const activeSection = this.state.sections.filter(section => section.active)[0]
@@ -39,7 +45,7 @@ class App extends React.Component {
         <div>
           {this.state.sections.map(sections => this.renderIcon(sections))}
         </div>
-          {activeSection.sectionName}
+          {this.renderField(activeSection)}
       </div>
     );
   }
