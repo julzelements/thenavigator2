@@ -33,13 +33,9 @@ function Icon(props) {
 
   return (
     <div className={iconClasses}>
-      <div>
-        <FontAwesomeIcon 
-          icon={icon} 
-          size="2x" 
-          transform={transform}
-          onClick={props.onClick}
-          />
+      <div className={"icon-tooltip-container"}>
+        <FontAwesomeIcon className={"icon"} icon={icon} size="2x" transform={transform} onClick={props.onClick}/>
+        <div className={"tooltip arrow_box"}>tool tip</div>
       </div>
       <div className={"divider-container"}>
         <div className={"divider"}>|</div>
@@ -48,9 +44,13 @@ function Icon(props) {
   );
 }
 
+// This field should be a controlled component
+// It also needs styling
+
 function Field(props) {
   return (
-    <div>
+    <div className="field">
+    <input type="text"/> 
       {props.section.sectionName}
     </div>
   );
@@ -103,13 +103,15 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <div>
+        <div className="app-container">
           <div className="navigation-menu-container">
             <div className="navigation-bar">
               {this.state.sections.map(sections => this.renderIcon(sections))}
             </div>
           </div>
-          {this.renderField(activeSection)}
+          <div className="field-container">
+            {this.renderField(activeSection)}
+          </div>
         </div>
       </div>
     );
