@@ -70,10 +70,14 @@
   transition: 0.2s;
 }
 
+.tooltip-text {
+  line-height: 30px;
+}
+
 .tooltip {
   display: none;
   background: #6dc5ab;
-  height: 25px;
+  height: 30px;
   width: 150px;
   color: white;
   font-family: Arial, Helvetica, sans-serif;

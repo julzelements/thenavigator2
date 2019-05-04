@@ -35,7 +35,11 @@ function Icon(props) {
     <div className={iconClasses}>
       <div className={"icon-tooltip-container"}>
         <FontAwesomeIcon className={"icon"} icon={icon} size="2x" transform={transform} onClick={props.onClick}/>
-        <div className={"tooltip arrow_box"}>tool tip</div>
+        <div className={"tooltip arrow_box"}>
+          <div className={"tooltip-text"}>
+            {props.section.sectionName}
+          </div>
+        </div>
       </div>
       <div className={"divider-container"}>
         <div className={"divider"}>|</div>
