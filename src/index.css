@@ -21,12 +21,6 @@
   display: none;
 }
 
-.section {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-}
-
 .navigation-bar {
   display: flex;
   flex-direction: column;
@@ -65,4 +59,10 @@
 
 .isActive {
   color: #6dc5ab;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
 }
+
+
