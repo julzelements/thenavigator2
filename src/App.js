@@ -1,5 +1,10 @@
 import React from 'react';
 import './App.css';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faDotCircle, faCircle, faCheckCircle, faExclamationCircle, faSquareFull } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+library.add(faDotCircle, faCircle, faCheckCircle, faExclamationCircle, faSquareFull);
 
 function Icon(props) {
   return (
@@ -45,14 +50,49 @@ class App extends React.Component {
     
   }
 
-  renderIcon(section) {
+  renderIcon(props) {
+    let icon;
+    let transform;
+    switch (props.status) {
+      case "available":
+        icon = "dot-circle"
+        break;
+      case "unavailable":
+        icon = "circle"
+        transform = "shrink-8"
+        break;
+      case "completed":
+        icon = "check-circle"
+        break;
+      case "invalid": 
+        icon = "exclamation-circle"
+        break;
+      default: // default status: unavailable
+        icon = "circle" 
+        transform = "shrink-8"
+        break;
+    }
+
     return (
-      <Icon 
-        section={section}
-        onClick={() => this.handleClick(section.sectionName)}
-      />
+      <div className={props.status}>
+        <div>
+          <FontAwesomeIcon icon={icon} size="2x" transform={transform}/>
+        </div>
+        <div className={"divider-container"}>
+          <div className={"divider"}>|</div>
+        </div>
+      </div>
     );
   }
+
+  // renderIcon(section) {
+  //   return (
+  //     <Icon 
+  //       section={section}
+  //       onClick={() => this.handleClick(section.sectionName)}
+  //     />
+  //   );
+  // }
 
   renderField(section) {
     return (
@@ -66,8 +106,10 @@ class App extends React.Component {
 
     return (
       <div>
-        <div>
-          {this.state.sections.map(sections => this.renderIcon(sections))}
+        <div className="navigation-menu-container">
+          <div className="navigation-bar">
+            {this.state.sections.map(sections => this.renderIcon(sections))}
+          </div>
         </div>
           {this.renderField(activeSection)}
       </div>
@@ -77,9 +119,10 @@ class App extends React.Component {
 
 const data = {
   sections: [
-  {sectionName: "name details", status: "unavailable", active: true},
-  {sectionName: "dob details", status: "available", active: false},
-  {sectionName: "address details", status: "available", active: false},
+  {sectionName: "name details", status: "available", active: true},
+  {sectionName: "dob details", status: "completed", active: false},
+  {sectionName: "address details", status: "invalid", active: false},
+  {sectionName: "phone details", status: "unavailable", active: false},
 ]
 }
 

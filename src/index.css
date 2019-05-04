@@ -13,17 +13,49 @@ code {
     monospace;
 }
 
-.green {
-  background: green;
-}
-.red {
-  background: red;
-}
-
 .hidden {
   display: none;
 }
 
-.blue {
-  background: blue;
+.navigation-menu-container {
+  display: flex;
+}
+
+.navigation-bar {
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  height: 100px;
+  width: 100px;
+}
+
+.divider-container {
+  height: 32px;
+  width: 32px;
+}
+
+.divider {
+  font-size: 29px;
+}
+
+.available {
+  color: #d2ddef;
+}
+
+.unavailable {
+  color: #d2ddef;
+}
+
+.completed {
+  color: #384b5d;
+}
+
+.invalid {
+  color: #c05f68;
+}
+
+.isActive {
+  color: #6dc5ab;
 }
