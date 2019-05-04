@@ -6,7 +6,7 @@ function Icon(props) {
     <button
       onClick={() => props.onClick()}
      >
-      {props.status}
+      {props.section.active.toString()}
     </button>
   );
 }
@@ -27,14 +27,28 @@ class App extends React.Component {
   }
 
   handleClick(sectionName) {
-    // here goes the code that call set state
-    console.log(sectionName + " was clicked");
+    const clickedSectionData = this.state.sections.filter(section => section.sectionName === sectionName)[0];
+    const clickedSectionIndex = this.state.sections.indexOf(clickedSectionData);
+    const newState = this.state;
+    // null out all sections then activate clicked on section
+    newState.sections.map(section => {
+      section.active = false
+      return section;
+    });
+    newState.sections[clickedSectionIndex].active = true;
+    // this is messy. Should probably use a map structure instead.
+
+    console.log(sectionName + " was clicked" + clickedSectionIndex);
+    this.setState({
+      sections: newState.sections
+    });
+    
   }
 
   renderIcon(section) {
     return (
       <Icon 
-        status={section.status}
+        section={section}
         onClick={() => this.handleClick(section.sectionName)}
       />
     );
@@ -47,7 +61,7 @@ class App extends React.Component {
   }
 
   render() {
-
+    console.log(JSON.stringify(this.state, null, 2));
     const activeSection = this.state.sections.filter(section => section.active)[0]
 
     return (
