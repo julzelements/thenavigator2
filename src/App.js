@@ -29,8 +29,10 @@ function Icon(props) {
       break;
   }
 
+  const iconClasses = `${props.section.status} ${props.section.active ? "isActive" : ""}`
+
   return (
-    <div className={props.section.status}>
+    <div className={iconClasses}>
       <div>
         <FontAwesomeIcon 
           icon={icon} 
@@ -100,7 +102,7 @@ class App extends React.Component {
     const activeSection = this.state.sections.filter(section => section.active)[0]
 
     return (
-      <div>
+      <div className="App">
         <div>
           <div className="navigation-menu-container">
             <div className="navigation-bar">
