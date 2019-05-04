@@ -7,12 +7,42 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 library.add(faDotCircle, faCircle, faCheckCircle, faExclamationCircle, faSquareFull);
 
 function Icon(props) {
+  let icon;
+  let transform;
+  switch (props.section.status) {
+    case "available":
+      icon = "dot-circle"
+      break;
+    case "unavailable":
+      icon = "circle"
+      transform = "shrink-8"
+      break;
+    case "completed":
+      icon = "check-circle"
+      break;
+    case "invalid": 
+      icon = "exclamation-circle"
+      break;
+    default: // default status: unavailable
+      icon = "circle" 
+      transform = "shrink-8"
+      break;
+  }
+
   return (
-    <button
-      onClick={() => props.onClick()}
-     >
-      {props.section.active.toString()}
-    </button>
+    <div className={props.section.status}>
+      <div>
+        <FontAwesomeIcon 
+          icon={icon} 
+          size="2x" 
+          transform={transform}
+          onClick={props.onClick}
+          />
+      </div>
+      <div className={"divider-container"}>
+        <div className={"divider"}>|</div>
+      </div>
+    </div>
   );
 }
 
@@ -50,49 +80,14 @@ class App extends React.Component {
     
   }
 
-  renderIcon(props) {
-    let icon;
-    let transform;
-    switch (props.status) {
-      case "available":
-        icon = "dot-circle"
-        break;
-      case "unavailable":
-        icon = "circle"
-        transform = "shrink-8"
-        break;
-      case "completed":
-        icon = "check-circle"
-        break;
-      case "invalid": 
-        icon = "exclamation-circle"
-        break;
-      default: // default status: unavailable
-        icon = "circle" 
-        transform = "shrink-8"
-        break;
-    }
-
+  renderIcon(section) {
     return (
-      <div className={props.status}>
-        <div>
-          <FontAwesomeIcon icon={icon} size="2x" transform={transform}/>
-        </div>
-        <div className={"divider-container"}>
-          <div className={"divider"}>|</div>
-        </div>
-      </div>
+      <Icon 
+        section={section}
+        onClick={() => this.handleClick(section.sectionName)}
+        />
     );
   }
-
-  // renderIcon(section) {
-  //   return (
-  //     <Icon 
-  //       section={section}
-  //       onClick={() => this.handleClick(section.sectionName)}
-  //     />
-  //   );
-  // }
 
   renderField(section) {
     return (
@@ -106,12 +101,14 @@ class App extends React.Component {
 
     return (
       <div>
-        <div className="navigation-menu-container">
-          <div className="navigation-bar">
-            {this.state.sections.map(sections => this.renderIcon(sections))}
+        <div>
+          <div className="navigation-menu-container">
+            <div className="navigation-bar">
+              {this.state.sections.map(sections => this.renderIcon(sections))}
+            </div>
           </div>
-        </div>
           {this.renderField(activeSection)}
+        </div>
       </div>
     );
   }
