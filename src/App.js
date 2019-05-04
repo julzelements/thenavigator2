@@ -3,9 +3,11 @@ import './App.css';
 
 function Icon(props) {
   return (
-    <div>
-      [{props.status}]
-    </div>
+    <button
+      onClick={() => props.onClick()}
+     >
+      {props.status}
+    </button>
   );
 }
 
@@ -21,12 +23,20 @@ function Field(props) {
 class App extends React.Component {
   constructor(props) {
 		super(props);
-		this.state = data
+		this.state = data;
+  }
+
+  handleClick(sectionName) {
+    // here goes the code that call set state
+    console.log(sectionName + " was clicked");
   }
 
   renderIcon(section) {
     return (
-      <Icon status={section.status}/>
+      <Icon 
+        status={section.status}
+        onClick={() => this.handleClick(section.sectionName)}
+      />
     );
   }
 
