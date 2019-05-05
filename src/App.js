@@ -51,16 +51,34 @@ function Icon(props) {
 // This field should be a controlled component
 // It also needs styling
 
-function Field(props) {
-  return (
-    <div className="field">
-    <input type="text"/> 
-      {props.section.sectionName}
-    <button onClick={() => props.submitSection(props.section.sectionName)}>Submit Section</button>
-    </div>
-  );
-}
+class Field extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: ''
+    }
+  }
 
+  changeHandler = event => {
+    this.setState({
+      value: event.target.value
+    });
+  }
+
+    render() {
+      return (
+      <div className="field">
+        <input
+          type="text"
+          value={this.state.value}
+          onChange={this.changeHandler}    
+        /> 
+          {this.props.section.sectionName}
+        <button onClick={() => this.props.submitSection(this.state.value)}>Submit Section</button>
+      </div>
+      )
+    }
+  }
 
 class App extends React.Component {
   constructor(props) {
@@ -68,6 +86,14 @@ class App extends React.Component {
     this.state = data;
     
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  
+  getActiveSection() {
+    return this.state.sections.filter(section => section.active);
+  }
+
+  getActiveSectionIndex() {
+    return this.state.sections.indexOf(this.getActiveSection()[0]);
   }
 
   handleClick(sectionName) {
@@ -90,7 +116,12 @@ class App extends React.Component {
   }
 
   handleSubmit(dataFromChild) {
+    console.log(this.getActiveSection());
+    console.log(this.getActiveSectionIndex());
     console.log(dataFromChild);
+    const newState = this.state;
+    newState.sections[this.getActiveSectionIndex()].value = dataFromChild;
+    this.setState(newState)
   }
 
   renderIcon(section) {
@@ -134,10 +165,10 @@ class App extends React.Component {
 
 const data = {
   sections: [
-  {sectionName: "name details", status: "available", active: true},
-  {sectionName: "dob details", status: "completed", active: false},
-  {sectionName: "address details", status: "invalid", active: false},
-  {sectionName: "phone details", status: "unavailable", active: false},
+  {sectionName: "name details", status: "available", active: true, value: ""},
+  {sectionName: "dob details", status: "completed", active: false, value: ""},
+  {sectionName: "address details", status: "invalid", active: false, value: ""},
+  {sectionName: "phone details", status: "unavailable", active: false, value: ""},
 ]
 }
 
