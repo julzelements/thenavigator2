@@ -54,9 +54,8 @@ function Icon(props) {
 class Field extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: ''
-    }
+    this.state = { value: props.value }
+    this.changeHandler = this.changeHandler.bind(this);
   }
 
   changeHandler = event => {
@@ -109,8 +108,6 @@ class App extends React.Component {
   
     newState.sections[clickedSectionIndex].active = true;
     // this is messy. Should probably use a map data structure instead.
-  
-    console.log(sectionName + " was clicked" + clickedSectionIndex);
     this.setState({
       sections: newState.sections
     });
@@ -146,7 +143,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(JSON.stringify(this.state, null, 2));
     const activeSection = this.state.sections.filter(section => section.active)[0]
 
     return (
