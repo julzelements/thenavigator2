@@ -56,6 +56,7 @@ function Field(props) {
     <div className="field">
     <input type="text"/> 
       {props.section.sectionName}
+    <button onClick={() => props.submitSection(props.section.sectionName)}>Submit Section</button>
     </div>
   );
 }
@@ -64,7 +65,9 @@ function Field(props) {
 class App extends React.Component {
   constructor(props) {
 		super(props);
-		this.state = data;
+    this.state = data;
+    
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleClick(sectionName) {
@@ -86,6 +89,10 @@ class App extends React.Component {
     
   }
 
+  handleSubmit(dataFromChild) {
+    console.log(dataFromChild);
+  }
+
   renderIcon(section) {
     return (
       <Icon 
@@ -97,7 +104,10 @@ class App extends React.Component {
 
   renderField(section) {
     return (
-      <Field section={section}/>
+      <Field 
+      section={section}
+      submitSection={this.handleSubmit}
+      />
     );
   }
 
