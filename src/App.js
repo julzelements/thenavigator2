@@ -96,31 +96,34 @@ class App extends React.Component {
     return this.state.sections.indexOf(this.getActiveSection()[0]);
   }
 
-  handleClick(sectionName) {
+  upDateActiveSection(sectionName) {
     const clickedSectionData = this.state.sections.filter(section => section.sectionName === sectionName)[0];
     const clickedSectionIndex = this.state.sections.indexOf(clickedSectionData);
+  
     const newState = this.state;
     // null out all sections then activate clicked on section
     newState.sections.map(section => {
       section.active = false
       return section;
     });
+  
     newState.sections[clickedSectionIndex].active = true;
-    // this is messy. Should probably use a map structure instead.
-
+    // this is messy. Should probably use a map data structure instead.
+  
     console.log(sectionName + " was clicked" + clickedSectionIndex);
     this.setState({
       sections: newState.sections
     });
-    
+
   }
 
-  handleSubmit(dataFromChild) {
-    console.log(this.getActiveSection());
-    console.log(this.getActiveSectionIndex());
-    console.log(dataFromChild);
+  handleClick(sectionName) {
+    this.upDateActiveSection(sectionName);
+  }
+
+  handleSubmit(fieldData) {
     const newState = this.state;
-    newState.sections[this.getActiveSectionIndex()].value = dataFromChild;
+    newState.sections[this.getActiveSectionIndex()].value = fieldData;
     this.setState(newState)
   }
 
